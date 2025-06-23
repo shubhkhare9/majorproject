@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content%}
+<!DOCTYPE html>
+<head>
+    <title>All Songs</title>
+    <meta charset="UTF-8">
+    <style>
+        body{
+            {% comment %} padding-left: 200px; {% endcomment %}
+        }
+        .song-item {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 12px 0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            background-color:rgb(128, 34, 0);
+            width: 60%;
+            padding-left: 50px;
+        }
+        .cover-image{
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+        }
+        .dlt {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .all-songs {
+            text-align: center;
+            color: white;
+            background-color: rgb(55, 34, 0);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 90%;
+            border: solid 2px #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="all-songs"><h1>All Songs</h1><div>
+    {% for song in songs %}
+        <div class="song-item">
+            <center>
+                <img src="{{ song.cover_image.url }}" alt="{{ song.title }} cover" class="cover-image">
+                <h3>{{ song.title }}</h3>
+                <h4> by {{ song.artist }}</h4>
+            </center>
+            <audio controls>
+                <source src="{{ song.audio_file.url }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <center><a href="{% url 'player:delete_song' song.pk %}" class="dlt">Delete</a></center>
+        </div>
+    {% empty %}
+        <p>No songs found.</p>
+    {% endfor %}
+</body>
+{% endblock %}

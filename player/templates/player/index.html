@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musifier</title>
+    <link rel="stylesheet" href="{% static 'player/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, black, rgb(55, 34, 0));
+            background-size: cover;
+        }
+        header {
+            background-color: #000;
+            color: orange;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .upload-btn{
+            background-color:rgb(255, 157, 0); /* Green */
+            color: white;
+            padding: 10px 20px;
+            border-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .upload-btn:hover {
+            background-color:rgb(255, 128, 0); /* Darker green */
+        }
+        .view-songs-btn{
+            background-color:rgb(255, 157, 0); /* Green */
+            color: white;
+            padding: 10px 20px;
+            border-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .view-songs-btn:hover {
+            background-color:rgb(255, 128, 0); /* Darker green */
+        }
+        .btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .lgn{border-color:white;}
+        .sgnu{
+            border-color:white;
+            background-color:rgb(255, 157, 0); /* Green */
+            color: white;
+            border-radius: 10px;
+            padding: 10px 20px;
+        }
+        .login-prompt {
+                gap: 20px;
+        }
+        .nav-links li{
+            padding-top: 12px;
+        }
+        .bar nav ul {
+            list-style: none;
+            position: fixed;
+            left: 0;
+        }
+        footer{
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .main-content {
+            background: linear-gradient(180deg, black, rgb(55, 34, 0));
+        }
+        .bar nav ul li {
+            border: 2px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="hero">
+            <a href="{% url 'player:index' %}">
+                <img src="{% static 'player/orange.png' %}" alt="">
+                <h1>Musifier</h1>
+            </a>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="{% url 'player:index' %}">Home</a></li>
+                <li><a href="{% url 'player:songs' %}">Songs</a></li>                        
+                {% if request.user.is_authenticated %}
+                    <b><i><li><p>Welcome, {{ request.user.username }}</p></li></i></b>
+                    <form method="POST" action="{% url 'player:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="login-btn">Logout</button>
+                    </form>
+                {% else %}
+                    <li><a href="{% url 'player:register' %}">Sign Up</a></li>
+                    <li><button onclick="window.location.href='{% url 'player:login' %}'" class="login-btn">Login</button></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <div class="bar">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'player:index' %}">Home</a></li>
+                    <li><a href="{% url 'player:songs' %}">Songs</a></li>
+                    <li><a href="{% url 'player:artist' %}">Artist</a></li>
+                    <li><a href="{% url 'player:playlist' %}">Playlist</a></li>
+                    <li><a href="{% url 'player:upload_song' %}">Upload Song</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="welcome" id="main-content">
+            <center>
+                <h3>
+                <p>Welcome to Musifier, your go-to platform for music creation and sharing!</p>
+                <p>Here you can create, share, and discover music with ease.</p>
+                </h3>
+                <div class="btns">
+                <button onclick="window.location.href='{% url 'player:upload_song' %}'" class="upload-btn">Upload Your First Song</button>
+                <button onclick="window.location.href='{% url 'player:songs' %}'" class="view-songs-btn">View All Songs</button>
+                </div>
+            </center>
+        </div>
+    </section>                        
+
+    <footer>
+        <p>&copy; 2023 Musifier. All rights reserved.</p>
+        <p>Follow us on:
+            <a href="https://twitter.com">Twitter</a>,
+            <a href="https://facebook.com">Facebook</a>,
+            <a href="https://instagram.com">Instagram</a>
+        </p>
+    </footer>
+
+    <div class="login-prompt">
+        <p>To get started, please log in or sign up</p>
+        <button onclick="window.location.href='{% url 'player:login' %}'" class="lgn">Login</button>
+        <button onclick="window.location.href='{% url 'player:register' %}'" class="sgnu">Sign Up</button>
+    </div>
+</body>
+</html>

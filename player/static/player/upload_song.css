@@ -1,0 +1,29 @@
+body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: white;
+      padding: 40px;
+  }
+.form-container {
+      max-width: 400px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  }
+input[type="text"], input[type="file"], button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+  }
+button {
+      background: #ff4c29;
+      color: white;
+      cursor: pointer;
+  }
+button:hover {
+      background: #e03e1a;
+  }

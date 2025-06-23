@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Song</title>
+    
+    <link rel="stylesheet" href="{% static 'player/upload_song.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Upload a New Song</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <style>
+        body {
+            background-color: #f0f0f0;
+            gap: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            width: 300px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .login-btn {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+    <div class="form-container">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <center>
+            <button type="submit" class="login-btn">Login</button>
+            </center>
+        </form>
+        <p>Don’t have an account? <a href="{% url 'player:register' %}">Sign up</a></p>
+    </div>
+{% endblock %}

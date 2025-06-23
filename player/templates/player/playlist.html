@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 style="color:orange">Playlists</h1>
+{% for playlist in playlists %}
+    <style>
+        .playlist-item {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 12px 0;
+            background-color: rgb(55, 34, 0);
+            color: white;
+            gap: 20px;
+        }
+        .playlist-item h3 {
+            color: #ffcc00;
+        }
+        .playlist-item p {
+            color: white;
+        }
+        .playlist-item ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .song-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        .cover-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+        }
+    </style>
+    <div style="margin-bottom: 40px;" class="playlist-item">
+        <i><u><h2 style="color: #ffcc00; padding:10px">{{ playlist.name }}</h2></i></u>
+        <p style="color: white;">{{ playlist.description }}</p>
+        {% if playlist.songs.all %}
+            <ul>
+                {% for song in playlist.songs.all %}
+                    <li>
+                        <div class="song-item">                            
+                            <center>
+                                <img src="{{ song.cover_image.url }}" alt="{{ song.title }} cover" class="cover-image">
+                                <h3>{{ song.title }}</h3>
+                                <h4> by {{ song.artist }}</h4>
+                            </center>
+                            <audio controls>
+                                <source src="{{ song.audio_file.url }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="color: gray;">No songs in this playlist.</p>
+        {% endif %}
+    </div>
+{% endfor %}
+{% endblock %}
